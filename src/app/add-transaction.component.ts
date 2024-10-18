@@ -40,8 +40,8 @@ type Full<T> = {
           <input id="amount" type="number" formControlName="amount" />
         </div>
         <footer>
-          <button class="danger" (click)="cancel()">Cancel</button>
-          <button (click)="addTransaction()">Add Transaction</button>
+          <button class="danger" id="close-dialog" (click)="cancel()">Cancel</button>
+          <button id="add-transaction" (click)="addTransaction()">Add Transaction</button>
         </footer>
       </form>
     </dialog>

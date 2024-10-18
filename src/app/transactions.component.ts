@@ -10,7 +10,7 @@ import { Transaction } from './types/transaction.type';
       <header>
         <h2>Transactions</h2>
         <h3>Current Balance: $ {{ currentBalance() }}</h3>
-        <button (click)="openAddTransactionDialog()">Add Transaction</button>
+        <button id="add-transaction-btn" (click)="openAddTransactionDialog()">Add Transaction</button>
       </header>
       <table>
         <thead>
@@ -29,6 +29,7 @@ import { Transaction } from './types/transaction.type';
             <td>{{ transaction.date | date }}</td>
             <td class="actions">
               <button
+                id="delete-btn"
                 class="danger"
                 (click)="deleteTransaction(transaction.id)"
               >
