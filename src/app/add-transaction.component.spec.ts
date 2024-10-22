@@ -46,4 +46,27 @@ describe('AddExpenseComponent', () => {
     fixture.detectChanges();
     expect(transactionAdded).not.toHaveBeenCalled();
   });
+
+  it('Should add transaction on button click if form is valid', () => {
+    const transactionAdded = spyOn(component.transactionAdded, 'emit')
+    component.form.patchValue({
+      title: 'Test',
+      amount: 100
+    });
+    const button = fixture.debugElement.query(By.css('#add-transaction'));
+    button.triggerEventHandler('click', null);
+    fixture.detectChanges();
+    expect(transactionAdded).toHaveBeenCalled();
+  });
+
+  it('Should reset form on button click', () => {
+    component.form.patchValue({
+      title: 'Test',
+      amount: 100
+    });
+    const button = fixture.debugElement.query(By.css('#close-dialog'));
+    button.triggerEventHandler('click', null);
+    fixture.detectChanges();
+    expect(component.form.value).toEqual({ title: '', amount: 0 });
+  });
 });

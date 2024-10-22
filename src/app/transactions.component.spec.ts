@@ -35,4 +35,40 @@ describe('TransactionsComponent', () => {
     expect(component.transactions().length).toBe(transactionsComponentsCount - 1);
   });
 
+  it('Should Open Add Transaction Dialog on Button Click', () => {
+    const addTransactionBtn = fixture.debugElement.query(By.css('#add-transaction-btn'));
+    addTransactionBtn.triggerEventHandler('click', null);
+    fixture.detectChanges();
+    expect(component.addTransactionDialogOpen()).toBe(true);
+  });
+
+  it('Current Balance Should Be Calculated Correctly', () => {
+    const transactions = component.transactions();
+    const currentBalance = transactions.reduce((acc, transaction) => {
+      return acc + transaction.amount;
+    }, 0);
+    expect(component.currentBalance()).toBe(currentBalance);
+  });
+
+  it('Current Balance Should Be Updated After Adding Transaction', () => {
+    const transactions = component.transactions();
+    const currentBalance = transactions.reduce((acc, transaction) => {
+      return acc + transaction.amount;
+    }, 0);
+    component.addTransaction({amount: 100, title: 'test'});
+    fixture.detectChanges();
+    expect(component.currentBalance()).toBe(currentBalance + 100);
+  });
+
+  it('Current Balance Should Be Updated After Removing Transaction', () => {
+    const transactions = component.transactions();
+    const currentBalance = transactions.reduce((acc, transaction) => {
+      return acc + transaction.amount;
+    }, 0);
+    const firstTransactionId = component.transactions()[0].id;
+    component.deleteTransaction(firstTransactionId)
+    fixture.detectChanges();
+    expect(component.currentBalance()).toBe(currentBalance - transactions[0].amount);
+  });
+
 });
